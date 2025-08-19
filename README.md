@@ -130,6 +130,7 @@
 2. Check **DynamoDB** to confirm the changes.
 
 ---
+<img width="1920" height="1026" alt="POST-GET-PUT-DELETE-command-bash" src="https://github.com/user-attachments/assets/497f5ca6-fccf-4941-93d1-cb30fa56df5b" />
 
 
 
