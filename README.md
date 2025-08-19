@@ -131,31 +131,5 @@
 
 ---
 
-## **Step 7: (Optional) Add Frontend**
-
-1. Create a **simple HTML + JS frontend** to call your API.
-2. Form inputs:
-
-   * Amount
-   * Description
-   * Category
-   * Buttons for Create, Update, Delete
-3. Use **fetch API** in JS to call your Lambda endpoints via API Gateway.
-
----
-
-## **Step 8: Add Logging & Monitoring**
-
-1. Go to **CloudWatch** → Log groups → Find your Lambda logs.
-2. Monitor:
-
-   * Errors
-   * Execution time
-   * API requests
-3. Add **more detailed logs** in Lambda if needed for debugging:
-
-   ```python
-   print("Received event:", event)
-   ```<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/fc000123-85f5-41db-87c0-73e14fad0de6" />
 
 
