@@ -1,3 +1,6 @@
+<img width="1348" height="888" alt="dig" src="https://github.com/user-attachments/assets/43fd7fe0-1810-4886-8488-47eeffaf1492" />
+
+
 ---
 
 # ** How I Build Serverless Expense Tracker**
