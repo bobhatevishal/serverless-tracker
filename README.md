@@ -131,6 +131,12 @@
 
 ---
 <img width="1920" height="1026" alt="POST-GET-PUT-DELETE-command-bash" src="https://github.com/user-attachments/assets/497f5ca6-fccf-4941-93d1-cb30fa56df5b" />
+<img width="1900" height="945" alt="dynamoDB" src="https://github.com/user-attachments/assets/1bdc31be-b708-42af-bb17-68504d9761b7" />
+<img width="1899" height="845" alt="function overview" src="https://github.com/user-attachments/assets/1a089dcc-7696-4fd2-882a-621a7c753896" />
+<img width="1891" height="882" alt="api" src="https://github.com/user-attachments/assets/d84e23e0-bfa4-4f4a-b060-63776f66381e" />
+
+
+
 
 
 
