@@ -1,0 +1,61 @@
+import json
+import boto3
+from decimal import Decimal
+import uuid
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('Expenses')  # DynamoDB table
+
+def decimal_default(obj):
+    if isinstance(obj, Decimal):
+        return float(obj)
+    raise TypeError
+
+def lambda_handler(event, context):
+    method = event.get('requestContext', {}).get('http', {}).get('method') or event.get('httpMethod')
+    
+    if method == 'GET':
+        expenses_id = event.get('queryStringParameters', {}).get('expenses_id')
+        if not expenses_id:
+            return {'statusCode': 400, 'body': json.dumps({'message': 'expenses_id is required'})}
+
+        response = table.get_item(Key={'expenses_id': expenses_id})
+        item = response.get('Item')
+        if item:
+            return {'statusCode': 200, 'body': json.dumps(item, default=decimal_default)}
+        else:
+            return {'statusCode': 404, 'body': json.dumps({'message': 'Expense not found'})}
+
+    elif method == 'POST':
+        data = json.loads(event['body'])
+        expenses_id = str(uuid.uuid4())
+        item = {
+            'expenses_id': expenses_id,
+            'amount': Decimal(str(data['amount'])),
+            'description': data.get('description', ''),
+            'category': data.get('category', '')
+        }
+        table.put_item(Item=item)
+        return {'statusCode': 201, 'body': json.dumps({'message': 'Expense created', 'expenses_id': expenses_id})}
+
+    elif method == 'PUT':
+        data = json.loads(event['body'])
+        expenses_id = data.get('expenses_id')
+        if not expenses_id:
+            return {'statusCode': 400, 'body': json.dumps({'message': 'expenses_id is required'})}
+
+        update_expression = "SET amount=:a, description=:d, category=:c"
+        expression_values = {':a': Decimal(str(data['amount'])), ':d': data.get('description', ''), ':c': data.get('category', '')}
+        table.update_item(Key={'expenses_id': expenses_id}, UpdateExpression=update_expression, ExpressionAttributeValues=expression_values)
+        return {'statusCode': 200, 'body': json.dumps({'message': 'Expense updated'})}
+
+    elif method == 'DELETE':
+        expenses_id = event.get('queryStringParameters', {}).get('expenses_id')
+        if not expenses_id:
+            return {'statusCode': 400, 'body': json.dumps({'message': 'expenses_id is required'})}
+
+        table.delete_item(Key={'expenses_id': expenses_id})
+        return {'statusCode': 200, 'body': json.dumps({'message': 'Expense deleted'})}
+
+    else:
+        return {'statusCode': 405, 'body': json.dumps({'message': 'Method not allowed'})}
